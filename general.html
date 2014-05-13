@@ -27,11 +27,11 @@
 
 <p>General:</p>
 <ul>
-	<li>Fully functional forms and their validations with a very small amount of code</li>
-	<li>Constraints are automatically used in both the HTML elements and for the validation</li>
-	<li>The form's render is designed to be integrated within any template engine</li>
-	<li>Automatic forms generation based on MySQL tables or queries</li>
-	<li>Direct forms rendering with an integrated pseudo template engine</li>
+    <li>Fully functional forms and their validations with a very small amount of code</li>
+    <li>Constraints are automatically used in both the HTML elements and for the validation</li>
+    <li>The form's render is designed to be integrated within any template engine</li>
+    <li>Automatic forms generation based on MySQL tables or queries</li>
+    <li>Direct forms rendering with an integrated pseudo template engine</li>
 </ul>
 
 
@@ -40,20 +40,34 @@
 <p>The package utilizes <a href="http://getcomposer.org/">Composer</a> for installation.</p>
 <p>Yet, as the development is in early stage, there is no Packagist package available. Instead, you can create a composer.json like this one:</p>
 
-<pre><code>{
+<pre><code>
+{
     "repositories": [
-    {
-        "type": "vcs",
-        "url": "https://github.com/ntopulos/formulator"
+        {
+            "type": "vcs",
+            "url": "https://github.com/ntopulos/formulator"
+        }
+    ],
+    "require": {
+        "ntopulos/formulator": "dev-master"
     }
-}</code></pre>
+}
+
+</code></pre>
 
 <p>Then, run the following commands in your terminal:</p>
 
-<pre><code>composer install
-composer dump-autoload -o</code></pre>
+<pre><code>
+composer install
+composer dump-autoload -o
 
+</code></pre>
 
+By now you should be able to use Formulator:
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;autoload<br /></span><span style="color: #007700">require_once&nbsp;</span><span style="color: #DD0000">'vendor/autoload.php'</span><span style="color: #007700">;<br /><br /></span><span style="color: #FF8000">//&nbsp;call&nbsp;with&nbsp;the&nbsp;namespace<br /></span><span style="color: #0000BB">$formulator&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">ntopulos</span><span style="color: #007700">\</span><span style="color: #0000BB">formulator</span><span style="color: #007700">\</span><span style="color: #0000BB">Formulator</span><span style="color: #007700">();</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
 
 <h2 id="requirements"><a href="#requirements"><span></span></a>Requirements</h2>
 
@@ -61,18 +75,18 @@ composer dump-autoload -o</code></pre>
 
 <p>Required:</p>
 <ul>
-	<li>PHP >= 5.4.16</li>
+    <li>PHP >= 5.4.16</li>
 </ul>
 
 <p>Required for database assisted generation:</p>
 <ul>
-	<li>Mysqli or PDO</li>
-	<li>MySQL >= 5.1.37 for advanced generation</li>
+    <li>Mysqli or PDO</li>
+    <li>MySQL >= 5.1.37 for advanced generation</li>
 </ul>
 
 <p>Recommended:</p>
 <ul>
-	<li><a href="render.html#basics">A template engine</a></li>
+    <li><a href="render.html#basics">A template engine</a></li>
 </ul>
 </main>
         <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
