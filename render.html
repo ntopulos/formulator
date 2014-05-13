@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+        <title>Render - Formulator documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">        
+    </head>
+    <body>
+        <header><h1><a href="index.html">Formulator</a></h1><a href="https://github.com/ntopulos/formulator" class="button">GitHub</a><a href="general.html#installation" class="button">Install</a></header>
+        <nav>
+            <ul>
+            <li><a href="general.html">General</a></li><li><a href="usage.html">Usage</a></li><li><a href="assisted.html">Assisted generation</a></li><li><a href="elements.html">Elements</a></li><li><a href="validation.html">Validation</a></li><li><a href="render.html">Render</a></li><li><a href="advanced.html">Advanced</a></li>            </ul>
+        </nav>
+        <main><h1 class="print-only">Render</h1>
+<nav>
+<ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#rendering">Rendering</a></li>
+    <li><a href="#pseudotemplate_rendering">pseudoTemplate rendering</a></li>
+    <li><a href="#styles">Styles</a></li>
+</ul>
+</nav>
+
+
+<h2 id="introduction"><a href="#introduction"><span></span></a>Introduction</h2>
+<p>This section covers the rendering part of a Formulator instance.</p>
+<p>Formulator renders separately all the elements that make the form, thus you have two options: use the separated elements with your own template system (<a href="#rendering">Rendering</a>) or let Formulator render a complete form (<a href="#pseudotemplate_rendering">pseudoTemplate rendering</a>).</p>
+<p>While the second option can be useful in some cases, usually the first one will be preferred. It allows your software to stick to its conventions, and in addition it makes use of your framework's caching capabilities.</p>
+
+
+<h2 id="rendering"><a href="#rendering"><span></span></a>Rendering</h2>
+
+<p>After the computation of your form, you can access the render result:</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB">if&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">compute</span><span style="color: #007700">())&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">$render&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">render</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;no&nbsp;paramater</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+<p>This method outputs an array with the following content:</p>
+
+<dl>
+    <dt>$render['open']</dt>
+    <dd>Opening tag of the form.</dd>
+
+    <dt>$render['elements']</dt>
+    <dd>All Elements objects are given there.</dd>
+
+    <dt>$render['normal_buttons']</dt>
+    <dd>Buttons.</dd>
+
+    <dt>$render['final_buttons']</dt>
+    <dd>Also buttons, but this group is intended to be rendered at the end of the form.</dd>
+
+    <dt>$render['close']</dt>
+    <dd>Closing elements of the form and final tag.</dd>
+</dl>
+
+<p>The next step is to provide this data to a template. To create your own template, the easiest way is to have a look at <a href="#">the two provided with Formulator</a>.</p>
+<p>Please note that using <code>$render['open']</code> and <code>$render['close']</code> is NOT optional: these variables can contain mandatory information for the proper functioning of Formualtor.</p>
+
+
+
+<h2 id="pseudotemplate_rendering"><a href="#pseudotemplate_rendering"><span></span></a>pseudoTemplate rendering</h2>
+
+<p>Formulator has an integrated template feature:</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB">if&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">compute</span><span style="color: #007700">())&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">$render_str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">render</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;paramater:&nbsp;true</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+<p>In the above case <code>$render_str</code> is no longer an array, but a string that contains the whole HTML form. You can directly <em>echo</em> it.</p>
+
+
+
+<h2 id="styles"><a href="#styles"><span></span></a>Styles</h2>
+<p>Example of CSS styles designed for the provided views:</p>
+<pre><code>
+<span style="color: #808080; font-style: italic;">/* Formulator CSS */</span>
+&nbsp;
+input<span style="color: #00AA00;">,</span> textarea<span style="color: #00AA00;">,</span> select<span style="color: #00AA00;">,</span> button <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">font-family</span><span style="color: #00AA00;">:</span> <span style="color: #ff0000;">'Open Sans'</span><span style="color: #00AA00;">;</span>
+    <span style="color: #000000; font-weight: bold;">font-size</span><span style="color: #00AA00;">:</span> <span style="color: #933;">16px</span><span style="color: #00AA00;">;</span>
+    <span style="color: #000000; font-weight: bold;">line-height</span><span style="color: #00AA00;">:</span> <span style="color: #933;">20px</span><span style="color: #00AA00;">;</span>
+    <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#555</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+&nbsp;
+div<span style="color: #6666ff;">.invalid</span> input<span style="color: #00AA00;">,</span>
+div<span style="color: #6666ff;">.invalid</span> textarea <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">border-color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#ED591A</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+form <span style="color: #6666ff;">.error</span> <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#ED591A</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+&nbsp;
+form <span style="color: #00AA00;">&gt;</span> div <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">table-row</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+label<span style="color: #00AA00;">,</span>
+form div div <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">table-cell</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+label <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #933;">0.5em</span> <span style="color: #933;">3em</span> <span style="color: #933;">0.5em</span> <span style="color: #933;">0.5em</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+form <span style="color: #00AA00;">&gt;</span> div<span style="color: #3333ff;">:last-child </span><span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">table-cell</span><span style="color: #00AA00;">;</span>
+    <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1em</span> <span style="color: #933;">0.5em</span> <span style="color: #933;">0.5em</span><span style="color: #00AA00;">;</span>
+<span style="color: #00AA00;">&#125;</span>
+
+</code></pre>
+</main>
+        <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
+        <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
+</html>

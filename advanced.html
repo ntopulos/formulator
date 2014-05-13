@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+        <title>Advanced - Formulator documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">        
+    </head>
+    <body>
+        <header><h1><a href="index.html">Formulator</a></h1><a href="https://github.com/ntopulos/formulator" class="button">GitHub</a><a href="general.html#installation" class="button">Install</a></header>
+        <nav>
+            <ul>
+            <li><a href="general.html">General</a></li><li><a href="usage.html">Usage</a></li><li><a href="assisted.html">Assisted generation</a></li><li><a href="elements.html">Elements</a></li><li><a href="validation.html">Validation</a></li><li><a href="render.html">Render</a></li><li><a href="advanced.html">Advanced</a></li>            </ul>
+        </nav>
+        <main><h1 class="print-only">Advanced</h1>
+<nav>
+<ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#classes_description">Classes description</a>
+        <ul>
+            <li><a href="#classes_description-formulator">Formulator</a></li>
+            <li><a href="#classes_description-element">Element</a></li>
+            <li><a href="#classes_description-render">Render</a></li>
+            <li><a href="#classes_description-rules">Rules</a></li>
+        </ul>
+    </li>
+    <li><a href="#objects_and_data_str">Objects and data struture</a></li>
+</ul>
+</nav>
+
+
+<h2 id="introduction"><a href="#introduction"><span></span></a>Introduction</h2>
+
+<p>This section is intended to shed light on the structure of Formulator. If you do not plan to extend it, or use it in any advanced way, you probably do not need to read the following.</p>
+
+
+
+<h2 id="classes_description"><a href="#classes_description"><span></span></a>Classes description</h2>
+
+<h3 id="classes_description-formulator"><a href="#classes_description-formulator"><span></span></a>Formulator</h3>
+<p>Main class, an object represents a given form on the page.</p>
+
+<h3 id="classes_description-element"><a href="#classes_description-element"><span></span></a>Element<em>s</em></h3>
+<p>Classes describing elements, each one extends - directly or indirectly - the main Element class. (called by Formulator)</p>
+
+<h3 id="classes_description-render"><a href="#classes_description-render"><span></span></a>Render</h3>
+<p>Helper with static methods generating the HTML elements. (called by Formulator and Element<em>s</em>)</p>
+
+<h3 id="classes_description-rules"><a href="#classes_description-rules"><span></span></a>Rules</h3>
+<p>Class with the rules as static methods. (called by Formulator)</p>
+
+
+<h2 id="objects_and_data_str"><a href="#objects_and_data_str"><span></span></a>Objects and data struture</h2>
+
+<p>A Formulator object contains Elements objects, each one of them corresponds to a given element (HTML) of the form.</p>
+<p>But please note that in the case of multirow forms, each Element object describes all the same form elements from the "column". The following structure will be the same for 1, 2 or 100 rows:</p>
+
+<pre><code>
+Formulator Object yourfrom
+    Element Object firstname
+    Element Object lastname
+
+</code></pre>
+
+<p>The only differences between the rows are limited to the input and the validations results. This data is stored within each Element object in an array containing the data for the whole "column", row by row:</p>
+
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #007700">[</span><span style="color: #0000BB">data</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;Array<br />&nbsp;&nbsp;&nbsp;&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #0000BB">0</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;Array<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #0000BB">content</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;</span><span style="color: #0000BB">John<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">[</span><span style="color: #0000BB">valid</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;</span><span style="color: #0000BB">1<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">[</span><span style="color: #0000BB">error</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #0000BB">1</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;Array<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #0000BB">content</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #0000BB">valid</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;[</span><span style="color: #0000BB">error</span><span style="color: #007700">]&nbsp;=&gt;&nbsp;</span><span style="color: #0000BB">Required</span><span style="color: #007700">.<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)<br />&nbsp;&nbsp;&nbsp;&nbsp;)</span><span style="color: #0000BB"></span>
+</span>
+</code></pre></main>
+        <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
+        <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
+</html>

@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+        <title>Assisted generation - Formulator documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">        
+    </head>
+    <body>
+        <header><h1><a href="index.html">Formulator</a></h1><a href="https://github.com/ntopulos/formulator" class="button">GitHub</a><a href="general.html#installation" class="button">Install</a></header>
+        <nav>
+            <ul>
+            <li><a href="general.html">General</a></li><li><a href="usage.html">Usage</a></li><li><a href="assisted.html">Assisted generation</a></li><li><a href="elements.html">Elements</a></li><li><a href="validation.html">Validation</a></li><li><a href="render.html">Render</a></li><li><a href="advanced.html">Advanced</a></li>            </ul>
+        </nav>
+        <main><h1 class="print-only">Assisted generation</h1>
+<nav>
+<ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#from_array">Form generation from an array</a>
+        <ul>
+            <li><a href="#from_array-methods">Methods</a></li>
+            <li><a href="#from_array-parameters">Parameters</a></li>
+        </ul>
+    </li>
+    <li><a href="#from_query_object">Form generation from a query object</a>
+        <ul>
+            <li><a href="#from_query_object-methods">Methods</a></li>
+            <li><a href="#from_query_object-parameters">Parameters</a></li>
+        </ul>
+    </li>
+    <li><a href="#advanced_generation">Advanced generation</a>
+        <ul>
+            <li><a href="#advanced_generation-methods">Methods</a></li>
+            <li><a href="#advanced_generation-parameters">Parameters</a></li>
+        </ul>
+    </li>
+    <li><a href="#options">$options</a>
+        <ul>
+            <li><a href="#options-ignore_a_column">Ignore a column</a></li>
+        </ul>
+    </li>
+</ul>
+</nav>
+
+
+
+
+<h2 id="introduction"><a href="#introduction"><span></span></a>Introduction</h2>
+<p>Fomulator can assist you in generating forms from simple or complex queries. Three methods are available based on the source of the data: array, query result and advanced generation. In this order these methods are increasingly accurate, but it comes with resources and database dependences costs.</p>
+
+
+
+<h2 id="from_array"><a href="#from_array"><span></span></a>Form generation from an array</h2>
+<p>For this first method, you provide an array that you have previously generated in your application. There is no dependence on any database, but as a consequence there is also no possibility of elements types' detection.</p>
+
+
+
+<h3 id="from_array-methods"><a href="#from_array-methods"><span></span></a>Methods</h3>
+<dl>
+    <dt>addEmptyElementsFromArray($array[, $options, $table])</dt>
+    <dd>Adds elements from an array. No population.</dd>
+
+    <dt>addElementsFromArray($array[, $options, $table])</dt>
+    <dd>Adds elements from an array and populates them with the provided values.</dd>
+</dl>
+
+
+
+<h3 id="from_array-parameters"><a href="#from_array-parameters"><span></span></a>Parameters</h3>
+<dl>
+    <dt>$array</dt>
+    <dd>An associative array where each row represents a row of data. The keys are the names of the elements and the values are their values.
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;array&nbsp;generation&nbsp;from&nbsp;mysqli&nbsp;query<br /></span><span style="color: #007700">while&nbsp;(</span><span style="color: #0000BB">$row&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli_result</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">fetch_assoc</span><span style="color: #007700">())&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #0000BB">$array</span><span style="color: #007700">[]&nbsp;=&nbsp;</span><span style="color: #0000BB">$row</span><span style="color: #007700">;<br />}</span><span style="color: #0000BB"></span>
+</span>
+</code></pre></dd>
+
+    <dt>$options</dt>
+    <dd>Refer to the <a href="#options">general description</a>.<br>
+        Notice that the names of the fields must be specified in the option array. Therefore this method is mostly interesting to populate the form or when the majority of the desired elements are InputTexts.</dd>
+    
+    <dt>$table</dt>
+    <dd>The table of the elements, by default it is root.</dd>
+</dl>
+
+
+
+
+
+
+
+<h2 id="from_query_object"><a href="#from_query_object"><span></span></a>Form generation from a query object</h2>
+
+<p>This second method uses the database drivers to find as much information as possible about the elements to generate, but it does not directly query the database.</p>
+<p>Supported drivers: <a href="http://www.php.net/manual/en/book.mysqli.php">Mysqli</a>, <a href="http://www.php.net/manual/en/book.pdo.php">PDO</a>.</p>
+<p>Note that PDO abilities are fairly limited in this area and are based on a still <a href="http://www.php.net/manual/en/pdostatement.getcolumnmeta.php">experimental feature</a>. If you do have a choice, the use of Mysqli is recommended.</p>
+
+<h3 id="from_query_object-methods"><a href="#from_query_object-methods"><span></span></a>Methods</h3>
+<dl>
+    <dt>addEmptyElementsFromQueryObject($object[, $options])</dt>
+    <dd>Adds elements from the object of a query. No population.</dd>
+
+    <dt>addElementsFromQueryObject($object[, $options])</dt>
+    <dd>Adds elements from the object of a query and populates them with the provided values.</dd>
+</dl>
+
+
+
+<h3 id="from_query_object-parameters"><a href="#from_query_object-parameters"><span></span></a>Parameters</h3>
+
+<dl>
+    <dt>$object</dt>
+    <dd>A Mysqli result or an executed PDO statement. In both cases the interaction with the database happens outside Formulator.
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;mysqli<br /></span><span style="color: #0000BB">$object&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$mysqli</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">query</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;PDO<br /></span><span style="color: #0000BB">$stmt&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$dbh</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">prepare</span><span style="color: #007700">(</span><span style="color: #0000BB">$query</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$stmt</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">execute</span><span style="color: #007700">();</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>    </dd>
+
+    <dt>$options</dt>
+    <dd>Refer to the <a href="#options">general description</a>.</dd>
+</dl>
+
+
+
+
+
+
+
+
+<h2 id="advanced_generation"><a href="#advanced_generation"><span></span></a>Advanced generation</h2>
+
+<p>This last method generates a form using the MySQL schema table. This method will be the most precise, but, to that end, Formulator will have to query the database.</p>
+<p>At the time only MySQL databases are supported, but you can use either Mysqli or PDO driver.</p>
+
+
+
+<h3 id="advanced_generation-methods"><a href="#advanced_generation-methods"><span></span></a>Methods</h3>
+<dl>
+    <dt>addEmptyElementsAdvanced($object, $db_name, $dbh[, $options])</dt>
+    <dd>Adds elements from the object of a query. No population.</dd>
+
+    <dt>addElementsAdvanced($object, $db_name, $dbh[, $options])</dt>
+    <dd>Adds elements from the object of a query and populates them with the provided values.</dd>
+</dl>
+
+
+
+<h3 id="advanced_generation-parameters"><a href="#advanced_generation-parameters"><span></span></a>Parameters</h3>
+
+<dl>
+    <dt>$object</dt>
+    <dd>A Mysqli result or an executed PDO statement (<a href="#from_query_object-parameters">same as specified here</a>).</dd>
+
+    <dt>$db_name</dt>
+    <dd>The name of the database used in <em>$object</em>.</dd>
+
+    <dt>$dbh</dt>
+    <dd>The database handler to access the MySQL <em>information_schema</em> database.<br>
+        The handler and <em>$object</em> must be both of the same type (PDO or Mysqli).The handler can be the same as the one used for $object.
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;mysqli<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$database</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;PDO<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #0000BB">$dsn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>    </dd>
+
+    <dt>$options</dt>
+    <dd>Refer to the <a href="#options">general description</a>.</dd>
+</dl>
+
+
+
+
+
+<h2 id="options"><a href="#options"><span></span></a>$options</h2>
+
+<p>For all previous three methods, the syntax of the <em>$options</em> array is the following:</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;defining&nbsp;options<br /></span><span style="color: #0000BB">$options</span><span style="color: #007700">[</span><span style="color: #DD0000">'table'</span><span style="color: #007700">]&nbsp;=&nbsp;array(<br />&nbsp;</span><span style="color: #DD0000">'id'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;array(</span><span style="color: #DD0000">'type'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'InputNumber'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'rules'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'required'</span><span style="color: #007700">),<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'attributes'&nbsp;&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'style'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'background-color:&nbsp;blue'</span><span style="color: #007700">)<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;),<br />&nbsp;</span><span style="color: #DD0000">'birth_date'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;array(</span><span style="color: #DD0000">'type'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'InputDate'</span><span style="color: #007700">)<br />&nbsp;);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+<h3 id="options-ignore_a_column"><a href="#options-ignore_a_column"><span></span></a>Ignore a column</h3>
+
+<p>You can specify a list of columns to ignore; in this case no associated Elements will be generated.<br>Notice that this feature is not supported by the methods generating from arrays.</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB">$options</span><span style="color: #007700">[</span><span style="color: #DD0000">'table'</span><span style="color: #007700">][</span><span style="color: #DD0000">'id'</span><span style="color: #007700">][</span><span style="color: #DD0000">'ignore'</span><span style="color: #007700">]&nbsp;=&nbsp;</span><span style="color: #0000BB">true</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;true/false&nbsp;have&nbsp;the&nbsp;same&nbsp;effect</span><span style="color: #0000BB"></span>
+</span>
+</code></pre></main>
+        <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
+        <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
+</html>

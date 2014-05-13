@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+        <title>Validation - Formulator documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">        
+    </head>
+    <body>
+        <header><h1><a href="index.html">Formulator</a></h1><a href="https://github.com/ntopulos/formulator" class="button">GitHub</a><a href="general.html#installation" class="button">Install</a></header>
+        <nav>
+            <ul>
+            <li><a href="general.html">General</a></li><li><a href="usage.html">Usage</a></li><li><a href="assisted.html">Assisted generation</a></li><li><a href="elements.html">Elements</a></li><li><a href="validation.html">Validation</a></li><li><a href="render.html">Render</a></li><li><a href="advanced.html">Advanced</a></li>            </ul>
+        </nav>
+        <main><h1 class="print-only">Validation</h1>
+<nav>
+<ul>
+    <li><a href="#rules_manipulations">Rules manipulations</a>
+        <ul>
+            <li><a href="#rules_manipulations-example">Example</a></li>
+            <li><a href="#rules_manipulations-methods">Methods</a></li>
+            <li><a href="#rules_manipulations-parameters_syntax">Parameters syntax</a></li>
+            <li><a href="#rules_manipulations-chaining">Chaining</a></li>
+        </ul>
+    </li>
+    <li><a href="#rules_reference">Rules reference</a></li>
+    <li><a href="#time_rules_formats">Accepted formats for time rules</a></li>
+    <li><a href="#type_inherited_rules">Type inherited rules</a></li>
+    <li><a href="#system_attributes">System attributes</a></li>
+    <li><a href="#validation_messages">Validation messages</a></li>
+</ul>
+</nav>
+
+
+
+<h2 id="rules_manipulations"><a href="#rules_manipulations"><span></span></a>Rules manipulations</h2>
+
+
+<h3 id="rules_manipulations-example"><a href="#rules_manipulations-example"><span></span></a>Example</h3>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;adding&nbsp;a&nbsp;rule&nbsp;to&nbsp;the&nbsp;username&nbsp;element<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">elements</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">username</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'alpha_numeric'</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+
+<h3 id="rules_manipulations-methods"><a href="#rules_manipulations-methods"><span></span></a>Methods</h3>
+
+<dl>
+    <dt>addRule($rule)</dt>
+    <dd>Adds a rule to the element.<br>
+        If a conflict occurs the new rule replaces the existing one.</dd>
+    
+    <dt>addRules($rules)</dt>
+    <dd>Adds multiple rules at once to the element.<br>
+    If a conflict occurs the new conflicting rules replace the existing ones.</dd>
+    
+    <dt>setRule($rules)</dt>
+    <dd>Performs the same task as addRule(), but deletes all existing elements rules first.</dd>
+    
+    <dt>setRules($rules)</dt>
+    <dd>Performs the same task as addRules(), but deletes all existing elements rules first.</dd>
+</dl>
+
+
+
+<h3 id="rules_manipulations-parameters_syntax"><a href="#rules_manipulations-parameters_syntax"><span></span></a>Parameters syntax</h3>
+
+<p>Rules definitions follow these syntaxes:</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">/*&nbsp;&nbsp;Single&nbsp;rule&nbsp;&nbsp;*/<br /><br />//&nbsp;array&nbsp;format<br /></span><span style="color: #0000BB">$rule&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'required'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;without&nbsp;argument<br /></span><span style="color: #0000BB">$rule&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'maxlength'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;with&nbsp;argument<br /><br />//&nbsp;string&nbsp;format<br /></span><span style="color: #0000BB">$rule&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'required'</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;without&nbsp;argument<br /></span><span style="color: #0000BB">$rule&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #DD0000">'maxlength:3'</span><span style="color: #007700">;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;with&nbsp;argument<br /><br /><br />/*&nbsp;&nbsp;Multiple&nbsp;rules&nbsp;&nbsp;*/<br /><br />//&nbsp;keys&nbsp;&amp;&nbsp;values&nbsp;array<br /></span><span style="color: #0000BB">$rules&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'readonly'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'maxlength'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;values&nbsp;array<br /></span><span style="color: #0000BB">$rules&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'readonly'</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'maxlength:3'</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+
+
+<h3 id="rules_manipulations-chaining"><a href="#rules_manipulations-chaining"><span></span></a>Chaining</h3>
+
+<p>All four previous methods can be chained.</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">elements</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">username</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">setRules</span><span style="color: #007700">(</span><span style="color: #0000BB">$rule</span><span style="color: #007700">)-&gt;</span><span style="color: #0000BB">addRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'required'</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+
+
+
+
+
+<h2 id="rules_reference"><a href="#rules_reference"><span></span></a>Rules Reference</h2>
+
+<table>
+<thead>
+<tr>
+    <th>Rule</th>
+    <th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <th id="rule-alpha">alpha</th>
+    <td><p>Must contain only alphabetical characters.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-alpha_numeric">alpha_numeric</th>
+    <td><p>Must contain only alpha-numeric characters.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-between">between:<em>min</em>,<em>max</em></th>
+    <td><p>The number must be between the given values (inclusive).</p></td>
+</tr>
+
+<tr>
+    <th id="rule-color">color</th>
+    <td><p>Must be a valid color: "#" followed by a six characters hexadecimal string.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-date">date</th>
+    <td><p>Must be a valid date.</p>
+        <p>Accepts one or more parameters separated by "||", that describe the format. To be validated, the value must be conform to at least one format. If no parameter is given, it assumes a <code>Y-m-d</code> (RFC 3339 full-date) format.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-email">email</th>
+    <td><p>Must be a valid email.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-float">float</th>
+    <td><p>Must be a float.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-html_datetime">html_datetime</th>
+    <td><p>Must be a valid datetime according to the <a href="http://www.w3.org/TR/html5/infrastructure.html#valid-normalized-forced-utc-global-date-and-time-string">W3C HTML5 CR</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-html_datetimetime">html_datetimetime</th>
+    <td><p>Must be a valid datetime-local according to the <a href="http://www.w3.org/TR/html5/infrastructure.html#valid-normalized-local-date-and-time-string">W3C HTML5 CR</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-html_time">html_time</th>
+    <td><p>Must be a valid time according to the <a href="http://www.w3.org/TR/html5/infrastructure.html#valid-time-string">W3C HTML5 CR</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-html_week">html_week</th>
+    <td><p>Must be a valid week according to the <a href="http://www.w3.org/TR/html5/forms.html#week-state-(type=week)">W3C HTML5 CR</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-integer">integer</th>
+    <td><p>Must be an integer.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-ip">ip</th>
+    <td><p>Must be a valid IP (IPv4 or IPv6).</p></td>
+</tr>
+
+<tr>
+    <th id="rule-length_between">length_between:<em>min</em>,<em>max</em></th>
+    <td><p>The length must be between the given <em>value</em> (inclusive).</p></td>
+</tr>
+
+<tr>
+    <th id="rule-length_max">length_max:<em>max</em></th>
+    <td><p>The length of the string cannot be longer than the maximum <em>value</em>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-length_min">length_min:<em>min</em></th>
+    <td><p>The length of the string cannot be shorter than the minimum <em>value</em>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-max">max:<em>max</em></th>
+    <td><p>Must be smaller than or equal to the numeric <em>value</em>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-min">min:<em>min</em></th>
+    <td><p>Must be bigger than or equal to the numeric <em>value</em>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-numeric">numeric</th>
+    <td><p>Must be numeric.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-required">required</th>
+    <td><p>Cannot be empty.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-time_after">time_after:<em>value</em></th>
+    <td><p>Must be a time succeeding the <em>value</em>.</p>
+        <p>See the <a href="#time_rules_formats">§ Accepted formats for time rules</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-time_before">time_before:<em>value</em></th>
+    <td><p>Must be a time preceding the <em>value</em>.</p>
+        <p>See the <a href="#time_rules_formats">§ Accepted formats for time rules</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-time_between">time_between:<em>min</em>,<em>max</em></th>
+    <td><p>Must be a time within the given range (inclusive).</p>
+        <p>Both <em>min</em> and <em>max</em> must have the same format.
+        <br>See the <a href="#time_rules_formats">§ Accepted formats for time rules</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-time_max">time_max:<em>max</em></th>
+    <td><p>Must be a time equal to or succeeding the <em>max</em>.</p>
+        <p>See the <a href="#time_rules_formats">§ Accepted formats for time rules</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-time_min">time_min:<em>min</em></th>
+    <td><p>Must be a time equal to or preceding the <em>min</em>.</p>
+        <p>See the <a href="#time_rules_formats">§ Accepted formats for time rules</a>.</p></td>
+</tr>
+
+<tr>
+    <th id="rule-url">url</th>
+    <td><p>Must be a valid URL.</p></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+<h2 id="time_rules_formats"><a href="#time_rules_formats"><span></span></a>Accepted formats for time rules</h2>
+
+<p>Accepted formats:</p>
+<ul>
+    <li>date (RFC 3339 full-date), e.g.: <em>1900-01-22</em></li>
+    <li>datetime, e.g.: <em>1980-01-22T12:00Z</em></li>
+    <li>datetime-local, e.g.: <em>1980-01-22T12:00</em></li>
+    <li>time, e.g.: <em>12:02</em></li>
+    <li>month, e.g.: <em>1980-12</em></li>
+    <li>week, e.g.: <em>1980-W17</em></li>
+</ul>
+
+
+
+
+<h2 id="type_inherited_rules"><a href="#type_inherited_rules"><span></span></a>Type inherited rules</h2>
+<p>Formulator will automatically add rules to some elements, these bindings are obvious (e.g. the <em>email</em> rule on <em>InputEmail</em> elements). Please see the <a href="elements.html#elements_reference">elements reference</a> for more details.</p>
+
+<h3>Behaviour</h3>
+<p>Each Element object has two sets of rules: <code>$this->rules</code> and <code>$this->type_inherited_rules</code>. The first ones can be edited, while the second ones are hard rules defined by formulator and should not be modified. The type inherited rules are the last to be validated.</p>
+
+
+
+
+<h2 id="system_attributes"><a href="#system_attributes"><span></span></a>System attributes</h2>
+<p>As with the rules, Formulator will automatically add attributes to some elements in the cases of certain <em>rule</em>&<em>element type</em> pairs.</p>
+
+
+<table>
+<thead>
+    <tr>
+        <th>Rule</th>
+        <th>Element</th>
+        <th>System attribute(s)</th>
+    </tr>
+</thead>
+<tbody>
+    <tr>
+        <td>between:<em>min</em>:<em>max</em></td>
+        <td>InputNumber<br>InputRange</td>
+        <td>min="<em>min</em>"&nbsp;max="<em>max</em>"</td>
+    </tr>
+    <tr>
+        <td>length_between:<em>min</em>:<em>max</em></td>
+        <td><em>all</em></td>
+        <td>maxlength="<em>max</em>"</td>
+    </tr>
+    <tr>
+        <td>length_max:<em>max</em></td>
+        <td><em>all</em></td>
+        <td>maxlength="<em>max</em>"</td>
+    </tr>
+    <tr>
+        <td>max:<em>max</em></td>
+        <td>InputNumber<br>InputRange</td>
+        <td>max="<em>max</em>"</td>
+    </tr>
+    <tr>
+        <td>min:<em>min</em></td>
+        <td>InputNumber<br>InputRange</td>
+        <td>min="<em>min</em>"</td>
+    </tr>
+    <tr>
+        <td>required</td>
+        <td><em>all</em></td>
+        <td>required</td>
+    </tr>
+    <tr>
+        <td>time_between:<em>min</em>,<em>max</em></td>
+        <td>InputDate<br>InputDatetime<br>InputDatetimelocal<br>InputMonth<br>InputTime<br>InputWeek</td>
+        <td>min="<em>min</em>"&nbsp;max="<em>max</em>"</td>
+    </tr>
+</tbody>
+</table>
+
+
+
+
+<h2 id="validation_messages"><a href="#validation_messages"><span></span></a>Validation messages</h2>
+<p>The property <code>$validation_messages</code> allows you to define your own messages, it is also a mean to internationalized the validation.</p>
+<p>This array must have the same structure as the <a href="#">validation_messages</a>, but it can be partially defined.</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB">$custom_messages&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'max'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;%label&nbsp;must&nbsp;measure&nbsp;no&nbsp;more&nbsp;than&nbsp;%0&nbsp;[m].'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'min'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;%label&nbsp;must&nbsp;measure&nbsp;at&nbsp;least&nbsp;%0&nbsp;[m].'<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">validation_messages&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$custom_messages</span><span style="color: #007700">;</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+<p>Every message can use the <code>%label</code> placeholder. The message of rules with parameters can also access the nth parameter's value with <code>%n</code>.</p></main>
+        <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
+        <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
+</html>

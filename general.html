@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+        <title>General - Formulator documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">        
+    </head>
+    <body>
+        <header><h1><a href="index.html">Formulator</a></h1><a href="https://github.com/ntopulos/formulator" class="button">GitHub</a><a href="general.html#installation" class="button">Install</a></header>
+        <nav>
+            <ul>
+            <li><a href="general.html">General</a></li><li><a href="usage.html">Usage</a></li><li><a href="assisted.html">Assisted generation</a></li><li><a href="elements.html">Elements</a></li><li><a href="validation.html">Validation</a></li><li><a href="render.html">Render</a></li><li><a href="advanced.html">Advanced</a></li>            </ul>
+        </nav>
+        <main><h1 class="print-only">General</h1>
+<nav>
+<ul>
+    <li><a href="#features">Features</a></li>
+    <li><a href="#installation">Installation</a></li>
+    <li><a href="#requirements">Requirements</a></li>
+</ul>
+</nav>
+
+
+
+<h2 id="features"><a href="#features"><span></span></a>Features</h2>
+
+<p>General:</p>
+<ul>
+	<li>Fully functional forms and their validations with a very small amount of code</li>
+	<li>Constraints are automatically used in both the HTML elements and for the validation</li>
+	<li>The form's render is designed to be integrated within any template engine</li>
+	<li>Automatic forms generation based on MySQL tables or queries</li>
+	<li>Direct forms rendering with an integrated pseudo template engine</li>
+</ul>
+
+
+<h2 id="installation"><a href="#installation"><span></span></a>Installation</h2>
+
+<p>The package utilizes <a href="http://getcomposer.org/">Composer</a> for installation.</p>
+<p>Yet, as the development is in early stage, there is no Packagist package available. Instead, you can create a composer.json like this one:</p>
+
+<pre><code>{
+    "repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/ntopulos/formulator"
+    }
+}</code></pre>
+
+<p>Then, run the following commands in your terminal:</p>
+
+<pre><code>composer install
+composer dump-autoload -o</code></pre>
+
+
+
+<h2 id="requirements"><a href="#requirements"><span></span></a>Requirements</h2>
+
+<p>Formulator is a standalone library, basically you just need PHP.</p>
+
+<p>Required:</p>
+<ul>
+	<li>PHP >= 5.4.16</li>
+</ul>
+
+<p>Required for database assisted generation:</p>
+<ul>
+	<li>Mysqli or PDO</li>
+	<li>MySQL >= 5.1.37 for advanced generation</li>
+</ul>
+
+<p>Recommended:</p>
+<ul>
+	<li><a href="render.html#basics">A template engine</a></li>
+</ul>
+</main>
+        <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
+        <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
+</html>

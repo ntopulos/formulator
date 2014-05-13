@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width">
+        <title>Elements - Formulator documentation</title>
+        <link rel="stylesheet" type="text/css" href="styles/style.css">        
+    </head>
+    <body>
+        <header><h1><a href="index.html">Formulator</a></h1><a href="https://github.com/ntopulos/formulator" class="button">GitHub</a><a href="general.html#installation" class="button">Install</a></header>
+        <nav>
+            <ul>
+            <li><a href="general.html">General</a></li><li><a href="usage.html">Usage</a></li><li><a href="assisted.html">Assisted generation</a></li><li><a href="elements.html">Elements</a></li><li><a href="validation.html">Validation</a></li><li><a href="render.html">Render</a></li><li><a href="advanced.html">Advanced</a></li>            </ul>
+        </nav>
+        <main><h1 class="print-only">Elements</h1>
+<nav>
+<ul>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#methods">Methods</a>
+        <ul>
+            <li><a href="#methods-parameters">Parameters</a></li>
+        </ul>
+    </li>
+    <li><a href="#elements_reference">Elements reference</a></li>
+    <li><a href="#attributes">Attributes</a>
+        <ul>
+            <li><a href="#attributes-methods">Methods</a></li>
+            <li><a href="#attributes-parameters_syntax">Parameters syntax</a></li>
+            <li><a href="#attributes-chaining">Chaining</a></li>
+        </ul>
+    </li>
+</ul>
+</nav>
+
+
+
+<h2 id="introduction"><a href="#introduction"><span></span></a>Introduction</h2>
+<p>An element is an object that represents an HTML form element and all the related informations: validation rules, validation results, values, etc...</p>
+<p>All elements are stored in the elements object, but note that you always have to access them by their <em>table</em>. The manually added elements are referenced to <em>root</em> table, while this value corresponds to the database table for the automatically generated elements.</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;manually&nbsp;adding&nbsp;an&nbsp;element<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addElement</span><span style="color: #007700">(</span><span style="color: #DD0000">'username'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;accessing&nbsp;the&nbsp;element&nbsp;to&nbsp;add&nbsp;a&nbsp;rule<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">elements</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">username</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'alpha_numeric'</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+
+
+<h2 id="methods"><a href="#methods"><span></span></a>Methods</h2>
+<dl>
+    <dt>addElement($name[, $type, $default_value, $table, $options])</dt>
+    <dd>Adds an element.</dd>
+
+    <dt>assisted elements generation methods</dt>
+    <dd>Refer to the <a href="assisted.html">§ Assisted generation</a>.</dd>
+</dl>
+
+
+
+<h3 id="methods-parameters"><a href="#methods-parameters"><span></span></a>Parameters</h3>
+<dl>
+    <dt>$name</dt>
+    <dd>Name of the element, must be a valid PHP variable/method name.</dd>
+
+    <dt>$type</dt>
+    <dd>Formulator element type, see the <a href="#elements_reference">elements reference</a>.</dd>
+
+    <dt>$default_value</dt>
+    <dd>The default value, can be <em>null</em>.</dd>
+
+    <dt>$table</dt>
+    <dd>The table of the element, by default it is <em>root</em>.</dd>
+
+    <dt>$options</dt>
+    <dd>Options of the elements <a href="assisted.html#options">as described here</a>, but starting in the <em>table</em> dimension since this information is already specified by method itself.<br>
+    These options can also be added later with specific methods.</dd>
+</dl>
+
+
+
+<h2 id="elements_reference"><a href="#elements_reference"><span></span></a>Elements reference</h2>
+<p>Currently supported form elements listed by their designation in Formulator:</p>
+
+<table>
+<thead>
+<tr>
+    <th>Element Type</th>
+    <th>HTML</th>
+    <th>System rule(s)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+    <td id="elmnt-InputCheckboxes">InputCheckboxes</td>
+    <td>input type=checkbox</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputColor">InputColor</td>
+    <td>input type=color</td>
+    <td>color</td>
+</tr>
+<tr>
+    <td id="elmnt-InputDate">InputDate</td>
+    <td>input type=date</td>
+    <td>date</td>
+</tr>
+<tr>
+    <td id="elmnt-InputDatetime">InputDatetime</td>
+    <td>input type=datetime</td>
+    <td>html_datetime</td>
+</tr>
+<tr>
+    <td id="elmnt-InputDatetimelocal">InputDatetimelocal</td>
+    <td>input type=datetime-local<br>(note that it will be <a href="https://twitter.com/html5/status/433038890937901056">potentially dropped by W3C</a>)</td>
+    <td>html_datetimelocal</td>
+</tr>
+<tr>
+    <td id="elmnt-InputEmail">InputEmail</td>
+    <td>input type=email</td>
+    <td>email</td>
+</tr>
+<tr>
+    <td id="elmnt-InputFile">InputFile</td>
+    <td>input type=file</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputHidden">InputHidden</td>
+    <td>input type=hidden</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputMonth">InputMonth</td>
+    <td>input type=month</td>
+    <td>date:Y-m</td>
+</tr>
+<tr>
+    <td id="elmnt-InputNumber">InputNumber</td>
+    <td>input type=number</td>
+    <td>numeric</td>
+</tr>
+<tr>
+    <td id="elmnt-InputPassword">InputPassword</td>
+    <td>input type=password</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-***InputRadios***">InputRadios</td>
+    <td>input type=radio</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputRange">InputRange</td>
+    <td>input type=range</td>
+    <td>numeric</td>
+</tr>
+<tr>
+    <td id="elmnt-InputSearch">InputSearch</td>
+    <td>input type=search</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputTel">InputTel</td>
+    <td>input type=tel</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputText">InputText</td>
+    <td>input type=text</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-InputTime">InputTime</td>
+    <td>input type=time</td>
+    <td>html_time</td>
+</tr>
+<tr>
+    <td id="elmnt-InputUrl">InputUrl</td>
+    <td>input type=url</td>
+    <td>url</td>
+</tr>
+<tr>
+    <td id="elmnt-InputWeek">InputWeek</td>
+    <td>input type=week</td>
+    <td>html_week</td>
+</tr>
+<tr>
+    <td id="elmnt-Keygen">Keygen</td>
+    <td>keygen</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-Output">Output</td>
+    <td>output</td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-Select">Select</td>
+    <td></td>
+    <td></td>
+</tr>
+<tr>
+    <td id="elmnt-Textarea">Textarea</td>
+    <td>textarea</td>
+    <td></td>
+</tr>
+
+</tbody>
+</table>
+
+
+
+<h2 id="attributes"><a href="#attributes"><span></span></a>Attributes</h2>
+<p>Attributes of the HTML form elements are <a href="validation.html#system_attributes">automatically inherited from validation rules</a>. But it is also possible to add them manually. If a conflict occurs, the manually added attribute will overwrite the inherited one.</p>
+
+
+<h3 id="attributes-methods"><a href="#attributes-methods"><span></span></a>Methods</h3>
+<dl>
+    <dt>addAttribute($attribute)</dt>
+    <dd>Adds an attribute to the element.<br>
+        If a conflict occurs the new attribute replaces the existing one.</dd>
+
+	<dt>setAttribute($attribute)</dt>
+	<dd>Performs the same task as addAttribute(), but deletes all existing elements attributes first.</dd>
+</dl>
+
+
+<h3 id="attributes-parameters_syntax"><a href="#attributes-parameters_syntax"><span></span></a>Parameters syntax</h3>
+<p>Arguments formats for both methods:</p>
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;--&nbsp;String&nbsp;format&nbsp;--<br />//&nbsp;attribute&nbsp;without&nbsp;argument<br /></span><span style="color: #0000BB">$attribute&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'readonly'</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;attribute&nbsp;with&nbsp;argument<br /></span><span style="color: #0000BB">$attribute&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'maxlength="3"'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;--&nbsp;Array&nbsp;format&nbsp;--<br />//&nbsp;attribute&nbsp;without&nbsp;argument<br /></span><span style="color: #0000BB">$attribute&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'readonly'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">null</span><span style="color: #007700">);<br /></span><span style="color: #FF8000">//&nbsp;attribute&nbsp;with&nbsp;argument<br /></span><span style="color: #0000BB">$attribute&nbsp;</span><span style="color: #007700">=&nbsp;array(</span><span style="color: #DD0000">'maxlength'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #0000BB">3</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
+</span>
+</code></pre>
+
+
+<h3 id="attributes-chaining"><a href="#attributes-chaining"><span></span></a>Chaining</h3>
+<p>The two previous methods can be chained <a href="validation.html#rules_manipulations-chaining">like the rules methods</a> and with them.</p></main>
+        <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
+        <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
+</html>
