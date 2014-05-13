@@ -3,7 +3,7 @@
 Formulator is a PHP library that fully handles forms. It takes care of the generation and the validation, it is complete and reliable without compromise on the flexibility: you can easily integrate it in any project and framework.
 
 **/!\ Formulator is in early development stage /!\**  
-**It still lacks some important features or they are not fully completed, major changes may also arise**
+**It still lacks some important features or they are not fully completed, major changes may also arise.**
 
 
 
