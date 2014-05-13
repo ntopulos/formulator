@@ -1,0 +1,23 @@
+{
+    "name":             "ntopulos/formulator",
+    "description":      "Generation and validation of forms, simple and reliable.",
+    "authors": [
+        {
+            "name": "Nikos Topulos",
+            "email": "nt@uptn.net"
+        }
+    ],
+    "license":          "MIT",
+    "keywords":         ["form", "forms", "generation", "validation"],
+    "homepage":         "https://github.com/ntopulos/formulator",
+    "require": {
+        "php": ">=5.4.16"
+    },
+    "autoload": {
+        "psr-4": {
+            "ntopulos\\formulator\\": "lib/",
+            "ntopulos\\formulator\\elements\\": "lib/elements/"
+        }
+    },
+    "minimum-stability": "stable"
+}
