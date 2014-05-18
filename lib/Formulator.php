@@ -24,6 +24,7 @@ class Formulator
     public $auto_placeholders = false;          // automatically add labels values as placeholders
     public $submit_button = true;               // automatically add a submit button
     public $validation_messages = array();      // edited validation messages
+    public $validation_extended = array();      // user registered rules
 
     // Containers
     public $elements;                           // stdClass with all Element objects
@@ -543,6 +544,26 @@ class Formulator
 
 
     /*************************************************************************/
+    /*                              EXTENDING                                */
+    /*************************************************************************/
+
+    /**
+     * Adds custom rule to the instance.
+     *
+     * @param   void
+     * @return  boolean
+    */
+    public function registerRule($name, $closure, $message = null)
+    {
+        $this->validation_extended[$name] = $closure;
+        if (!is_null($message)) {
+            $this->validation_messages[$name] = $message;
+        }
+    }
+
+
+
+    /*************************************************************************/
     /*                          FORM SUBMISSION                              */
     /*************************************************************************/
         
@@ -649,11 +670,7 @@ class Formulator
 
                         // loop on all rules -> all must bee valid to get valid element
                         foreach ($rules as $rule => $params) {
-                            if (is_null($params)) {
-                                $is_valid = Rules::$rule($value);
-                            } else {
-                                $is_valid = Rules::$rule($value, $params);
-                            }
+                            $is_valid = $this->validateSingleItem($value, $rule, $params);
 
                             if (!$is_valid) {
                                 $item->data[$row]['error'] = $this->parseValidationMessage($item->label, $validation_msg[$rule], $params);
@@ -669,6 +686,31 @@ class Formulator
             }
 
         }
+    }
+
+    /**
+     * Validates single item with extend and normal rules.
+     *
+     * @param   string
+     * @param   string
+     * @param   array   ?
+     * @return  bool
+    */
+    private function validateSingleItem($value, $rule, $params)
+    {
+        if (array_key_exists($rule, $this->validation_extended)) {
+            $call = $this->validation_extended[$rule];
+        } else {
+            $call = __NAMESPACE__.'\Rules::'.$rule;
+        }
+
+        if (is_null($params)) {
+            $is_valid = call_user_func($call, $value);
+        } else {
+            $is_valid = call_user_func_array($call, array($value, $params));
+        }
+
+        return $is_valid;
     }
 
     /**

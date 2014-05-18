@@ -47,7 +47,6 @@ class Rules {
      * Color
      *
      * @param   string      $input
-     * @param   array       $between
      * @return  bool
     */
     public static function color($input)
@@ -89,6 +88,18 @@ class Rules {
             // if no rule valid
             return false;
         }
+    }
+
+    /**
+     * Equal
+     *
+     * @param   string      $input
+     * @param   string      $value
+     * @return  bool
+    */
+    public static function equal($input, $value)
+    {
+        return $input === $value;
     }
 
     /**
@@ -395,6 +406,7 @@ class Rules {
     {
         return filter_var($input, FILTER_VALIDATE_URL);
     }
+
 
 
     /*************************************************************************/

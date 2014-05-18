@@ -7,6 +7,7 @@ return array(
     'color'                 => 'Color must be valid.',
     'date'                  => 'Must be a valid time value.',
     'email'                 => 'Email must be valid.',
+    'equal'                 => 'The value must be equal to <em>%0</em>.',
     'float'                 => 'The value must be a float.',
     'html_datetime'         => 'Must be a valid datetime value.',
     'html_datetimelocal'    => 'Must be a valid datetime value.',
