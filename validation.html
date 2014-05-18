@@ -28,6 +28,13 @@
     <li><a href="#type_inherited_rules">Type inherited rules</a></li>
     <li><a href="#system_attributes">System attributes</a></li>
     <li><a href="#validation_messages">Validation messages</a></li>
+    <li><a href="#custom_rules">Custom rules</a>
+        <ul>
+            <li><a href="#custom_rules-method">Methods</a></li>
+            <li><a href="#custom_rules-parameters">Parameters</a></li>
+            <li><a href="#custom_rules-examples">Examples</a></li>
+        </ul>
+    </li>
 </ul>
 </nav>
 
@@ -320,7 +327,43 @@
 <span style="color: #0000BB">$custom_messages&nbsp;</span><span style="color: #007700">=&nbsp;array(<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'max'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;%label&nbsp;must&nbsp;measure&nbsp;no&nbsp;more&nbsp;than&nbsp;%0&nbsp;[m].'</span><span style="color: #007700">,<br />&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #DD0000">'min'&nbsp;</span><span style="color: #007700">=&gt;&nbsp;</span><span style="color: #DD0000">'The&nbsp;%label&nbsp;must&nbsp;measure&nbsp;at&nbsp;least&nbsp;%0&nbsp;[m].'<br /></span><span style="color: #007700">);<br /><br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">validation_messages&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$custom_messages</span><span style="color: #007700">;</span><span style="color: #0000BB"></span>
 </span>
 </code></pre>
-<p>Every message can use the <code>%label</code> placeholder. The message of rules with parameters can also access the nth parameter's value with <code>%n</code>.</p></main>
+<p>Every message can use the <code>%label</code> placeholder. The message of rules with parameters can also access the nth parameter's value with <code>%n</code>.</p>
+
+
+
+
+
+<h2 id="custom_rules"><a href="#custom_rules"><span></span></a>Custom rules</h2>
+<p>You can register custom validation rules. If a conflict occurs, only the manually added rule is used for the validation.</p>
+
+
+<h3 id="custom_rules-method"><a href="#custom_rules-method"><span></span></a>Method</h3>
+<dl>
+    <dt>registerRule($name, $closure[, $message])</dt>
+    <dd>Register a custom rule to the formulator object.</dd>
+</dl>
+
+
+<h3 id="custom_rules-parameters"><a href="#custom_rules-parameters"><span></span></a>Parameters</h3>
+
+<dl>
+    <dt>$name</dt>
+    <dd>Name of the rule.</dd>
+
+    <dt>$closure</dt>
+    <dd>The closure of the custom rule.</dd>
+
+    <dt>$message</dt>
+    <dd>The associated validation message. This parameter is optional, but if it is not defined here, it must be defined within the <a href="#validation_messages">validation messages</a>.</dd>
+</dl>
+
+
+<h3 id="custom_rules-examples"><a href="#custom_rules-examples"><span></span></a>Examples</h3>
+
+<pre><code><span style="color: #000000">
+<span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;Custom&nbsp;rule&nbsp;without&nbsp;parameter<br /></span><span style="color: #0000BB">$closure&nbsp;</span><span style="color: #007700">=&nbsp;function&nbsp;(</span><span style="color: #0000BB">$v</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;</span><span style="color: #0000BB">$v&nbsp;</span><span style="color: #007700">%&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">0</span><span style="color: #007700">;<br />};<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">registerRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'even'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$closure</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Must&nbsp;be&nbsp;even.'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">elements</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">A</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'even'</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;Custom&nbsp;rule&nbsp;with&nbsp;parameter<br /></span><span style="color: #0000BB">$closure&nbsp;</span><span style="color: #007700">=&nbsp;function&nbsp;(</span><span style="color: #0000BB">$v</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">)&nbsp;{<br />&nbsp;&nbsp;&nbsp;&nbsp;return&nbsp;(</span><span style="color: #0000BB">$v&nbsp;</span><span style="color: #007700">%&nbsp;</span><span style="color: #0000BB">2&nbsp;</span><span style="color: #007700">==&nbsp;</span><span style="color: #0000BB">0&nbsp;</span><span style="color: #007700">and&nbsp;</span><span style="color: #0000BB">$v&nbsp;</span><span style="color: #007700">&gt;&nbsp;</span><span style="color: #0000BB">$p</span><span style="color: #007700">);<br />};<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">registerRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'myrule'</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$closure</span><span style="color: #007700">,&nbsp;</span><span style="color: #DD0000">'Must&nbsp;be&nbsp;even&nbsp;and&nbsp;greater&nbsp;than&nbsp;%0.'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">elements</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">root</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">B</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">addRule</span><span style="color: #007700">(</span><span style="color: #DD0000">'myrule:20'</span><span style="color: #007700">);<br /></span><span style="color: #0000BB"></span>
+</span>
+</code></pre></main>
         <footer><p class="print-only">http://ntopulos.github.io/formulator</p><p>Author: <a href="https://ntopulos.github.io/">Nikos Topulos</a> | Released under the <a href="https://github.com/ntopulos/formulator/blob/master/LICENSE">MIT license</a>.</p></footer>
         <script>(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b;a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)};a[b].l=1*new Date;c=e.createElement(f);d=e.getElementsByTagName(f)[0];c.async=1;c.src=g;d.parentNode.insertBefore(c,d)})(window,document,"script","//www.google-analytics.com/analytics.js","ga");ga("create","UA-50528806-2","ntopulos.github.io");ga("send","pageview");</script>    </body>
 </html>
