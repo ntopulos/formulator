@@ -40,23 +40,20 @@
 
 <dl>
     <dt>$render['open']</dt>
-    <dd>Opening tag of the form.</dd>
+    <dd>Opening tag and general elements of the form.</dd>
 
     <dt>$render['elements']</dt>
     <dd>All Elements objects are given there.</dd>
 
     <dt>$render['normal_buttons']</dt>
-    <dd>Buttons.</dd>
+    <dd>Buttons to be rendered on each row.</dd>
 
     <dt>$render['final_buttons']</dt>
     <dd>Also buttons, but this group is intended to be rendered at the end of the form.</dd>
-
-    <dt>$render['close']</dt>
-    <dd>Closing elements of the form and final tag.</dd>
 </dl>
 
 <p>The next step is to provide this data to a template. To create your own template, the easiest way is to have a look at <a href="#">the two provided with Formulator</a>.</p>
-<p>Please note that using <code>$render['open']</code> and <code>$render['close']</code> is NOT optional: these variables can contain mandatory information for the proper functioning of Formualtor.</p>
+<p>Please note that using <code>$render['open']</code> is NOT optional: this variable contains mandatory information for the proper functioning of Formualtor.</p>
 
 
 
@@ -76,11 +73,8 @@
 <pre><code>
 <span style="color: #808080; font-style: italic;">/* Formulator CSS */</span>
 &nbsp;
-input<span style="color: #00AA00;">,</span> textarea<span style="color: #00AA00;">,</span> select<span style="color: #00AA00;">,</span> button <span style="color: #00AA00;">&#123;</span>
-    <span style="color: #000000; font-weight: bold;">font-family</span><span style="color: #00AA00;">:</span> <span style="color: #ff0000;">'Open Sans'</span><span style="color: #00AA00;">;</span>
-    <span style="color: #000000; font-weight: bold;">font-size</span><span style="color: #00AA00;">:</span> <span style="color: #933;">16px</span><span style="color: #00AA00;">;</span>
-    <span style="color: #000000; font-weight: bold;">line-height</span><span style="color: #00AA00;">:</span> <span style="color: #933;">20px</span><span style="color: #00AA00;">;</span>
-    <span style="color: #000000; font-weight: bold;">color</span><span style="color: #00AA00;">:</span> <span style="color: #cc00cc;">#555</span><span style="color: #00AA00;">;</span>
+form <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> table<span style="color: #00AA00;">;</span>
 <span style="color: #00AA00;">&#125;</span>
 &nbsp;
 div<span style="color: #6666ff;">.invalid</span> input<span style="color: #00AA00;">,</span>
@@ -101,9 +95,8 @@ form div div <span style="color: #00AA00;">&#123;</span>
 label <span style="color: #00AA00;">&#123;</span>
     <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #933;">0.5em</span> <span style="color: #933;">3em</span> <span style="color: #933;">0.5em</span> <span style="color: #933;">0.5em</span><span style="color: #00AA00;">;</span>
 <span style="color: #00AA00;">&#125;</span>
-form <span style="color: #00AA00;">&gt;</span> div<span style="color: #3333ff;">:last-child </span><span style="color: #00AA00;">&#123;</span>
-    <span style="color: #000000; font-weight: bold;">display</span><span style="color: #00AA00;">:</span> <span style="color: #993333;">table-cell</span><span style="color: #00AA00;">;</span>
-    <span style="color: #000000; font-weight: bold;">padding</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1em</span> <span style="color: #933;">0.5em</span> <span style="color: #933;">0.5em</span><span style="color: #00AA00;">;</span>
+form <span style="color: #00AA00;">&gt;</span> div<span style="color: #3333ff;">:last-of-type </span>div <span style="color: #00AA00;">&#123;</span>
+    <span style="color: #000000; font-weight: bold;">padding-top</span><span style="color: #00AA00;">:</span> <span style="color: #933;">1em</span><span style="color: #00AA00;">;</span>
 <span style="color: #00AA00;">&#125;</span>
 
 </code></pre>
