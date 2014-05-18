@@ -24,9 +24,14 @@
 <? endfor; ?>
 
 <div>
+    <div></div>
+    <div>
     <?
     foreach($final_buttons as $button) {
         echo $button;
     }
-    echo $close; ?>
+    ?>
+    </div>
 </div>
+
+</form>

@@ -14,7 +14,7 @@ class Formulator
 {
     // Form tag basics
     public $name;                               // name of the form (eg: for hidden field)
-    public $action = '';
+    public $action = '#';
     public $method = 'post';
     public $enctype = null;                     // no default enctype defined
 
@@ -716,7 +716,7 @@ class Formulator
         // GENERAL 
         $render['rows'] = $this->rows;
 
-        // OPEN
+        // OPEN (+ datalists + hidden form name)
         $form_attr = array(
             'action' => $this->action,
             'method' => $this->method
@@ -724,7 +724,10 @@ class Formulator
         if ($this->enctype) {
             $form_attr['enctype'] = $this->enctype;
         }
-        $render['open'] = Render::openTag('form', $form_attr);
+
+        $render['open'] = Render::openTag('form', $form_attr) .
+                        $this->renderDatalists() .
+                        '<input type="hidden" name="'.$this->name.'" value="1">';
         
         // ELEMENTS
         $render['elements'] = $this->elements;
@@ -732,9 +735,6 @@ class Formulator
         // BUTTONS
         $render['normal_buttons'] = $this->renderNormalButtons();
         $render['final_buttons'] = $this->renderFinalButtons();
-
-        // CLOSE (datalists + close tag)
-        $render['close'] = $this->renderDatalists() . '<input type="hidden" name="'.$this->name.'" value="1"></form>';
 
         // DEBUG
         $render['debug'] = ($this->debug_mod ? $this->debug() : '');
