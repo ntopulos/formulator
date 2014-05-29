@@ -762,13 +762,13 @@ class Formulator
     /*************************************************************************/
 
     /**
-     * Returns the whole form as an view string using the views in views/formulator/
+     * Returns the whole form as arrays
      *
      * @access  public
      * @param   boolean     false: outputs array, true: pseudoTemplate
      * @return  mixed       resulting array or string
     */
-    public function render($pseudoTemplate=false)
+    public function render()
     {
         // GENERAL 
         $render['rows'] = $this->rows;
@@ -796,26 +796,34 @@ class Formulator
         // DEBUG
         $render['debug'] = ($this->debug_mod ? $this->debug() : '');
 
-        // VIEW GENERATION
-        if ($pseudoTemplate==false) {
-            return $render;
+        // OUTPUT
+        return $render;
+    }
+
+    /**
+     * Returns the whole form as a view string
+     * using the views in views/formulator/
+     *
+     * @access  public
+     * @param   boolean     false: outputs array, true: pseudoTemplate
+     * @return  mixed       resulting array or string
+    */
+    public function renderTemplate()
+    {
+        $view = ($this->rows > 1 ? 'multirow' : 'monorow');
+        $path = '../views/'.$view.'.php';
+
+        if (file_exists($path)) {
+            // Into buffer
+            ob_start();
+            extract($this->render());
+            require '../views/'.$view.'.php';
+            $view = ob_get_clean();
+
+            return $view;
         } else {
-            $view = ($this->rows > 1 ? 'multirow' : 'monorow');
-            $path = '../views/'.$view.'.php';
-
-            if (file_exists($path)) {
-                // Into buffer
-                ob_start();
-                extract($render);
-                require '../views/'.$view.'.php';
-                $view = ob_get_clean();
-
-                return $view;
-            } else {
-                return 'File "'.$path.'" not found !<br>';
-            }
+            return 'File "'.$path.'" not found !<br>';
         }
-        
     }
 
     // buttons for render()
