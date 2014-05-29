@@ -23,6 +23,7 @@ Formulator is a PHP library that fully handles forms. It takes care of the gener
 
 #### To do
 
+- [F] integer validation (&co)
 - [C] support of disabled fields
 - [A] differentiate $row and $id from database
 - [A] retrieve submitted data methods
@@ -33,7 +34,6 @@ Formulator is a PHP library that fully handles forms. It takes care of the gener
 - [A] file upload handling
 - [F] assisted generation: issue with empty query results
 - [F] issue with addElementsFromQueryObject() when PDOStatement::getColumnMeta is not supported (it is not by all PDO drivers)
-- [Q] option to validate prepopulated, of any use ?
 
 #### On the long run
 
