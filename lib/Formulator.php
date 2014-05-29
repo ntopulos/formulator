@@ -811,13 +811,13 @@ class Formulator
     public function renderTemplate()
     {
         $view = ($this->rows > 1 ? 'multirow' : 'monorow');
-        $path = '../views/'.$view.'.php';
+        $path = __DIR__.'/../views/'.$view.'.php';
 
         if (file_exists($path)) {
             // Into buffer
             ob_start();
             extract($this->render());
-            require '../views/'.$view.'.php';
+            require $path;
             $view = ob_get_clean();
 
             return $view;
