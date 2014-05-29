@@ -17,7 +17,7 @@
 <ul>
     <li><a href="#introduction">Introduction</a></li>
     <li><a href="#rendering">Rendering</a></li>
-    <li><a href="#pseudotemplate_rendering">pseudoTemplate rendering</a></li>
+    <li><a href="#template_rendering">Template rendering</a></li>
     <li><a href="#styles">Styles</a></li>
 </ul>
 </nav>
@@ -33,7 +33,7 @@
 
 <p>After the computation of your form, you can access the render result:</p>
 <pre><code><span style="color: #000000">
-<span style="color: #0000BB">if&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">compute</span><span style="color: #007700">())&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">$render&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">render</span><span style="color: #007700">();&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;no&nbsp;paramater</span><span style="color: #0000BB"></span>
+<span style="color: #0000BB">if&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">validate</span><span style="color: #007700">())&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">$render&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">render</span><span style="color: #007700">();</span><span style="color: #0000BB"></span>
 </span>
 </code></pre>
 <p>This method outputs an array with the following content:</p>
@@ -57,11 +57,11 @@
 
 
 
-<h2 id="pseudotemplate_rendering"><a href="#pseudotemplate_rendering"><span></span></a>pseudoTemplate rendering</h2>
+<h2 id="template_rendering"><a href="#template_rendering"><span></span></a>Template rendering</h2>
 
 <p>Formulator has an integrated template feature:</p>
 <pre><code><span style="color: #000000">
-<span style="color: #0000BB">if&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">compute</span><span style="color: #007700">())&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">$render_str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">render</span><span style="color: #007700">(</span><span style="color: #0000BB">true</span><span style="color: #007700">);&nbsp;&nbsp;&nbsp;&nbsp;</span><span style="color: #FF8000">//&nbsp;paramater:&nbsp;true</span><span style="color: #0000BB"></span>
+<span style="color: #0000BB">if&nbsp;</span><span style="color: #007700">(</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">validate</span><span style="color: #007700">())&nbsp;{&nbsp;}<br /></span><span style="color: #0000BB">$render_str&nbsp;</span><span style="color: #007700">=&nbsp;</span><span style="color: #0000BB">$formulator</span><span style="color: #007700">-&gt;</span><span style="color: #0000BB">renderTemplate</span><span style="color: #007700">();</span><span style="color: #0000BB"></span>
 </span>
 </code></pre>
 <p>In the above case <code>$render_str</code> is no longer an array, but a string that contains the whole HTML form. You can directly <em>echo</em> it.</p>
