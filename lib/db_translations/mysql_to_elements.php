@@ -9,96 +9,96 @@
 return array(
 
     // Numeric data types
-    'int'           => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('integer')
-                        ),
-    'tinyint'       => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('integer')
-                        ),
-    'smallint'      => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('integer')
-                        ),
-    'mediumint'     => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('integer')
-                        ),
-    'bigint'        => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('numeric')
-                        ),
-    'float'         => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('numeric')
-                        ),
-    'double'        => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('numeric')
-                        ),
-    'decimal'       => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('numeric')
-                        ),
+    'int'           => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['integer']
+                       ],
+    'tinyint'       => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['integer']
+                       ],
+    'smallint'      => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['integer']
+                       ],
+    'mediumint'     => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['integer']
+                       ],
+    'bigint'        => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['numeric']
+                       ],
+    'float'         => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['numeric']
+                       ],
+    'double'        => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['numeric']
+                       ],
+    'decimal'       => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['numeric']
+                       ],
 
     // Date and time types
-    'date'          => array(
-                            'type'      => 'InputDate',
-                            'rules'     => array('date')
-                        ),
-    'datetime'      => array(
-                            'type'      => 'InputDatetime',
-                            'rules'     => array('date' => 'Y-m-d H:i:s')
-                        ),
-    'timestamp'     => array(
-                            'type'      => 'InputText',
-                            'rules'     => array('numeric'),
-                            'filters'   => array('date_to_timestamp'),
-                        ),
-    'time'          => array(
-                            'type'      => 'InputTime',
-                            'rules'     => array('date' => 'H:i:s')
-                        ),
-    'year'          => array(
-                            'type'      => 'InputNumber',
-                            'rules'     => array('date' => 'Y')
-                        ),
+    'date'          => [
+                        'type'      => 'InputDate',
+                        'rules'     => ['date']
+                       ],
+    'datetime'      => [
+                        'type'      => 'InputDatetime',
+                        'rules'     => ['date' => 'Y-m-d H:i:s']
+                       ],
+    'timestamp'     => [
+                        'type'      => 'InputText',
+                        'rules'     => ['numeric'],
+                        'filters'   => ['date_to_timestamp'],
+                       ],
+    'time'          => [
+                        'type'      => 'InputTime',
+                        'rules'     => ['date' => 'H:i:s']
+                       ],
+    'year'          => [
+                        'type'      => 'InputNumber',
+                        'rules'     => ['date' => 'Y']
+                       ],
 
     // String types
-    'char'          => array(
-                            'type'      => 'InputText',
-                        ),
-    'varchar'       => array(
-                            'type'      => 'InputText',
-                        ),
-    'blob'          => array(
-                            'type'      => 'Textarea',
-                        ),
-    'tinyblob'      => array(
-                            'type'      => 'Textarea',
-                        ),
-    'mediumblob'    => array(
-                            'type'      => 'Textarea',
-                        ),
-    'longblob'      => array(
-                            'type'      => 'Textarea',
-                        ),
-    'text'          => array(
-                            'type'      => 'Textarea',
-                        ),
-    'tinytext'      => array(
-                            'type'      => 'Textarea',
-                        ),
-    'mediumtext'    => array(
-                            'type'      => 'Textarea',
-                        ),
-    'longtext'      => array(
-                            'type'      => 'Textarea',
-                        ),
-    'enum'          => array(
-                            'type'      => 'InputText',
-                        ),
+    'char'          => [
+                        'type'      => 'InputText',
+                       ],
+    'varchar'       => [
+                        'type'      => 'InputText',
+                       ],
+    'blob'          => [
+                        'type'      => 'Textarea',
+                       ],
+    'tinyblob'      => [
+                        'type'      => 'Textarea',
+                       ],
+    'mediumblob'    => [
+                        'type'      => 'Textarea',
+                       ],
+    'longblob'      => [
+                        'type'      => 'Textarea',
+                       ],
+    'text'          => [
+                        'type'      => 'Textarea',
+                       ],
+    'tinytext'      => [
+                        'type'      => 'Textarea',
+                       ],
+    'mediumtext'    => [
+                        'type'      => 'Textarea',
+                       ],
+    'longtext'      => [
+                        'type'      => 'Textarea',
+                       ],
+    'enum'          => [
+                        'type'      => 'InputText',
+                       ],
     // set (multiple enum)
 
-    );
+);
