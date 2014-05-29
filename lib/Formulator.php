@@ -566,23 +566,38 @@ class Formulator
     /*************************************************************************/
     /*                          FORM SUBMISSION                              */
     /*************************************************************************/
-        
+
     /**
-     * Runs the form by populating with POST values (if necessary) and running the validation.
+     * Checks if the form has been submitted
+     *
+     * @param   void
+     * @return  boolean
+    */
+    public function submitted()
+    {
+        global ${'_'.strtoupper($this->method)};
+        $input = ${'_'.strtoupper($this->method)};
+
+        if (isset($input[$this->name])) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+    /**
+     * Populates the elements with data from POST or GET
      * Returns true if sent AND valid, otherwise returns false
      *
      * @param   void
      * @return  boolean
     */
-    public function compute()
+    public function validate()
     {
-        global ${'_'.strtoupper($this->method)};
-        $input = ${'_'.strtoupper($this->method)};
-
-        // if the form is submitted
-        if (isset($input[$this->name])) {
+        if ($this->submitted()) {
             $this->getInputData();
-            return $this->validate();
+            return $this->validateGlobal();
         }
         else {
             return false;
@@ -622,11 +637,11 @@ class Formulator
     }
 
     /**
-     * Validates data calling Validation class
+     * Validates all data calling Validation class
      *
      * @return  void
     */
-    private function validate()
+    private function validateGlobal()
     {
         global ${'_'.strtoupper($this->method)};
         $input = ${'_'.strtoupper($this->method)};
