@@ -28,8 +28,7 @@ class Formulator
 
     // Containers
     public $elements;                           // stdClass with all Element objects
-    public $normal_buttons = array();           // array of buttons
-    public $final_buttons = array();            // array of forms end buttons
+    public $buttons = array();                  // array of buttons
     public $datalists = array();
 
     // Static
@@ -136,10 +135,9 @@ class Formulator
      * @param   string      type (button, submit, reset)
      * @return  void
     */
-    public function addButton($name, $value, $attributes=array(), $type='button', $is_final=true)
+    public function addButton($name, $value, $attributes=array(), $type='button')
     {
-        $array = ($is_final ? 'final_buttons' : 'normal_buttons');
-        $this->{$array}[$name] = array(
+        $this->buttons[$name] = array(
                     'type' => $type,
                     'name' => $name,
                     'value' => $value)
@@ -790,8 +788,7 @@ class Formulator
         $render['elements'] = $this->elements;
 
         // BUTTONS
-        $render['normal_buttons'] = $this->renderNormalButtons();
-        $render['final_buttons'] = $this->renderFinalButtons();
+        $render['buttons'] = $this->renderButtons();
 
         // DEBUG
         $render['debug'] = ($this->debug_mod ? $this->debug() : '');
@@ -840,11 +837,11 @@ class Formulator
     }
 
     // buttons for render()
-    private function renderFinalButtons()
+    private function renderButtons()
     {
         $buttons = array();
 
-        foreach ($this->final_buttons as $name => $button_data) {
+        foreach ($this->buttons as $name => $button_data) {
             $buttons[$name] = Render::button($button_data);
         }
 
@@ -855,21 +852,10 @@ class Formulator
         return $buttons;
     }
 
-    // buttons for render()
-    private function renderNormalButtons()
-    {
-        $buttons = array();
-        foreach ($this->normal_buttons as $button_data => $name) {
-            $buttons[$name] = Render::button($button_data);
-        }
-
-        return $buttons;
-    }
-
 
 
     /*************************************************************************/
-    /*                          ! developement !                             */
+    /*                          ! development !                              */
     /*************************************************************************/
 
     public function debug() {

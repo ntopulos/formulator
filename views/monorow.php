@@ -25,7 +25,7 @@
     <div></div>
     <div>
     <?
-    foreach($final_buttons as $button) {
+    foreach($buttons as $button) {
         echo $button;
     }
     ?>
