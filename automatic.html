@@ -136,10 +136,10 @@
 
 <h3 id="advanced_generation-methods"><a href="#advanced_generation-methods"><span></span></a>Methods</h3>
 <dl>
-    <dt>addEmptyElementsAdvanced($object, $db_name, $dbh[, $options])</dt>
+    <dt>addEmptyElementsAdvanced($object, $dbh[, $options])</dt>
     <dd>Adds elements from the object of a query. No population.</dd>
 
-    <dt>addElementsAdvanced($object, $db_name, $dbh[, $options])</dt>
+    <dt>addElementsAdvanced($object, $dbh[, $options])</dt>
     <dd>Adds elements from the object of a query and populates them with the provided values.</dd>
 </dl>
 
@@ -151,12 +151,9 @@
     <dt>$object</dt>
     <dd>A Mysqli result or an executed PDO statement (<a href="#from_query_object-parameters">same as specified here</a>).</dd>
 
-    <dt>$db_name</dt>
-    <dd>The name of the database used in <em>$object</em>.</dd>
-
     <dt>$dbh</dt>
     <dd>The database handler to access the MySQL <em>information_schema</em> database.<br>
-        The handler and <em>$object</em> must be both of the same type (PDO or Mysqli).The handler can be the same as the one used for $object.
+        This handler should be the same as the one used for $object. If not, the handler and <em>$object</em> must at least be both of the same type (PDO or Mysqli).
 <pre><code><span style="color: #000000">
 <span style="color: #0000BB"></span><span style="color: #FF8000">//&nbsp;mysqli<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">mysqli</span><span style="color: #007700">(</span><span style="color: #0000BB">$host</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$database</span><span style="color: #007700">);<br /><br /></span><span style="color: #FF8000">//&nbsp;PDO<br /></span><span style="color: #0000BB">$dbh&nbsp;</span><span style="color: #007700">=&nbsp;new&nbsp;</span><span style="color: #0000BB">PDO</span><span style="color: #007700">(</span><span style="color: #0000BB">$dsn</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$user</span><span style="color: #007700">,&nbsp;</span><span style="color: #0000BB">$password</span><span style="color: #007700">);</span><span style="color: #0000BB"></span>
 </span>
