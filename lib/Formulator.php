@@ -347,14 +347,19 @@ class Formulator
      * @param   array       options
      * @return  void
     */
-    private function addElementsAdvancedMeta($object, $db_name, $dbh, $options, $populate)
+    private function addElementsAdvancedMeta($object, $dbh, $options, $populate)
     {
         $tables_columns = array();
 
-        /* 1. Finding tables and columns */
+        /* 1. Finding db, tables and columns */
         switch (get_class($object)) {
 
             case 'mysqli_result':
+                /* current database */
+                $result = $dbh->query('SELECT DATABASE()');
+                $db_name = $result->fetch_row()[0];
+                $result->close();
+                
                 $conversions = require('db_translations/mysqli_to_elements.php');
                 $finfos = $object->fetch_fields();
 
@@ -371,6 +376,10 @@ class Formulator
                break;
 
             case 'PDOStatement':
+                /* current database */
+                $stmt = $dbh->query('SELECT DATABASE()');
+                $db_name = $stmt->fetch(\PDO::FETCH_NUM)[0];
+
                 $conversions = require('db_translations/pdo_to_elements.php');
 
                 foreach (range(0, $object->columnCount() - 1) as $column_index) {
@@ -426,6 +435,9 @@ class Formulator
         switch (get_class($object)) {
 
             case 'mysqli_result':
+                // switch db
+                $dbh->select_db('information_schema');
+
                 $dbh->multi_query($queries);
                 do {
                     $result = $dbh->store_result();
@@ -437,8 +449,8 @@ class Formulator
                 break;
 
             case 'PDOStatement':
-                $stmt = $dbh->prepare($queries);
-                $stmt->execute();
+                $dbh->query('use information_schema');
+                $stmt = $dbh->query($queries);
                 while($row = $stmt->fetch(\PDO::FETCH_ASSOC)){
                     $db_schema[$row['TABLE_NAME']][$row['COLUMN_NAME']] = $row;
                 }
@@ -498,9 +510,9 @@ class Formulator
      * @param   array       options
      * @return  void
     */
-    public function addElementsAdvanced($object, $db_name, $dbh, $options = array())
+    public function addElementsAdvanced($object, $dbh, $options = array())
     {
-        $this->addElementsAdvancedMeta($object, $db_name, $dbh, $options, true);
+        $this->addElementsAdvancedMeta($object, $dbh, $options, true);
     }
 
     /**
@@ -512,9 +524,9 @@ class Formulator
      * @param   array       options
      * @return  void
     */
-    public function addEmptyElementsAdvanced($object, $db_name, $dbh, $options = array())
+    public function addEmptyElementsAdvanced($object, $dbh, $options = array())
     {
-        $this->addElementsAdvancedMeta($object, $db_name, $dbh, $options, false);
+        $this->addElementsAdvancedMeta($object, $dbh, $options, false);
     }
 
     /**
