@@ -223,7 +223,7 @@ class Rules {
     */
     public static function integer($input)
     {
-        return is_int($input);
+        return preg_match('/^\d+$/', $input);
     }
 
     /**
