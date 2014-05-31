@@ -223,7 +223,7 @@ class Rules {
     */
     public static function integer($input)
     {
-        return preg_match('/^\d+$/', $input);
+        return preg_match('/^-\d+|\d+$/', $input);
     }
 
     /**

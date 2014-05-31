@@ -23,7 +23,6 @@ Formulator is a PHP library that fully handles forms. It takes care of the gener
 
 #### To do
 
-- [F] integer validation (&co)
 - [C] support of disabled fields
 - [A] differentiate $row and $id from database
 - [A] retrieve submitted data methods
