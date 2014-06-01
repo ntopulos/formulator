@@ -13,7 +13,7 @@
 
 ## Try Formulator
 
-[Try it!](https://ntopulos.github.io/formulator/general.html#try_it)
+[Try it!](https://github.com/ntopulos/formulator-devkit)
 
 
 ## Development
