@@ -1,6 +1,6 @@
 # Formulator
 
-Formulator is a PHP library that fully handles forms. It takes care of the generation and the validation, it is complete and reliable without compromise on the flexibility: you can easily integrate it in any project and framework.
+[Formulator](https://ntopulos.github.io/formulator) is a PHP library that fully handles forms. It takes care of the generation and the validation, it is complete and reliable without compromise on the flexibility: you can easily integrate it in any project and framework.
 
 **/!\ Formulator is in early development stage /!\**  
 **It still lacks some important features or they are not fully completed, major changes may also arise.**
@@ -9,8 +9,11 @@ Formulator is a PHP library that fully handles forms. It takes care of the gener
 
 ## Documentation
 
-[Offical documentation website](https://ntopulos.github.io/formulator)
+[Offical documentation](https://ntopulos.github.io/formulator)
 
+## Try Formulator
+
+[Try it!](https://ntopulos.github.io/formulator/general.html#try_it)
 
 
 ## Development
