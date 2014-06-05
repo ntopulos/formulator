@@ -99,7 +99,7 @@ class Rules {
     */
     public static function equal($input, $value)
     {
-        return $input === $value;
+        return $input == $value;
     }
 
     /**
