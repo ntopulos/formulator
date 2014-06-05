@@ -23,6 +23,7 @@ class Formulator
     public $human_readable_labels = true;       // should the labels be more human readable ? (_=>space and camelized)
     public $auto_placeholders = false;          // automatically add labels values as placeholders
     public $submit_button = true;               // automatically add a submit button
+    public $global_validation = false;          // one global validation message
     public $validation_messages = array();      // edited validation messages
     public $validation_extended = array();      // user registered rules
 
@@ -663,6 +664,7 @@ class Formulator
         }
 
         // loop on form rows
+        $valid_form = true;
         for ($row=0; $row < $this->rows; $row++) {
             // Loop on object elements tables
             foreach ($this->elements as $table => $items) {
@@ -707,10 +709,16 @@ class Formulator
                     }
 
                     $item->data[$row]['valid'] = $is_valid;
+
+                    if (!$is_valid) {
+                        $valid_form = false;
+                    }
                 }
             }
 
         }
+
+        return $valid_form;
     }
 
     /**

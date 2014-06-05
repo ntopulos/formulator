@@ -1,6 +1,8 @@
 <?php
 
 return array(
+    'global'                => 'Invalid data sumbitted.',
+
     'alpha'                 => 'Only alphabetic characters are allowed.',
     'alpha_numeric'         => 'Only alpha-numeric characters are allowed.',
     'between'               => 'The %label must be between %0 and %1.',
