@@ -32,6 +32,9 @@ class Formulator
     public $buttons = array();                  // array of buttons
     public $datalists = array();
 
+    // From status
+    private $is_valid = true;
+
     // Static
     static $name_increment = 0;                 // for multiple forms
 
@@ -699,11 +702,9 @@ class Formulator
                         foreach ($rules as $rule => $params) {
                             $is_valid = $this->validateSingleItem($value, $rule, $params);
 
-                            if (!$is_valid) {
+                            if (!$is_valid && !$this->global_validation) {
                                 $item->data[$row]['error'] = $this->parseValidationMessage($item->label, $validation_msg[$rule], $params);
-
-                                // stoping at the first error
-                                break;
+                                break;  // stoping at the first error
                             }
                         }
                     }
@@ -718,6 +719,7 @@ class Formulator
 
         }
 
+        $this->is_valid = $valid_form;
         return $valid_form;
     }
 
@@ -790,6 +792,15 @@ class Formulator
     {
         // GENERAL 
         $render['rows'] = $this->rows;
+
+        // GLOBAL VALIDATION
+        $render['global_validation'] = $this->global_validation;
+        if (!$this->is_valid && $this->global_validation) {
+            $errors = require('validation_messages.php');
+            $render['global_error'] = $errors['global'];
+        } else {
+            $render['global_error'] = false;
+        }
 
         // OPEN (+ datalists + hidden form name)
         $form_attr = array(
