@@ -662,9 +662,7 @@ class Formulator
 
         // messages
         $validation_msg = require('validation_messages.php');
-        if (!empty($this->validation_messages)) {
-            $validation_msg = array_merge($validation_msg, $this->validation_messages);
-        }
+        $this->validation_messages = array_merge($validation_msg, $this->validation_messages);
 
         // loop on form rows
         $valid_form = true;
@@ -703,7 +701,7 @@ class Formulator
                             $is_valid = $this->validateSingleItem($value, $rule, $params);
 
                             if (!$is_valid && !$this->global_validation) {
-                                $item->data[$row]['error'] = $this->parseValidationMessage($item->label, $validation_msg[$rule], $params);
+                                $item->data[$row]['error'] = $this->parseValidationMessage($item->label, $this->validation_messages[$rule], $params);
                                 break;  // stoping at the first error
                             }
                         }
@@ -796,8 +794,7 @@ class Formulator
         // GLOBAL VALIDATION
         $render['global_validation'] = $this->global_validation;
         if (!$this->is_valid && $this->global_validation) {
-            $errors = require('validation_messages.php');
-            $render['global_error'] = $errors['global'];
+            $render['global_error'] = $this->validation_messages['global'];
         } else {
             $render['global_error'] = false;
         }
